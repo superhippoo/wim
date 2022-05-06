@@ -1,4 +1,4 @@
-package com.wim.dao;
+package com.wim.dto;
 
 import java.sql.Timestamp;
 
