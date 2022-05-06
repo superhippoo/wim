@@ -15,8 +15,8 @@ public class UserSvcImple implements UserSvc{
 	private UserDao userdao;
 
 	@Override
-	public List<UserVo> selectUserList(UserVo uservo) {
-		return userdao.selectUserList(uservo);
+	public List<UserVo> selectUserList() {
+		return userdao.selectUserList();
 	}
 	
 }

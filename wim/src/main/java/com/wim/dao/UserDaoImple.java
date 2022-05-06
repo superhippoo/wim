@@ -17,7 +17,7 @@ public class UserDaoImple implements UserDao {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
-	public List<UserVo> selectUserList(UserVo uservo) {
+	public List<UserVo> selectUserList() {
 
 		StringBuffer sql = new StringBuffer();
 		sql.append("\n").append("select ");
