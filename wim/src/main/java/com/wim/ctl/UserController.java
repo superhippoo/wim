@@ -121,26 +121,25 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/userjpa", method = RequestMethod.POST)
-	public UserEntity insertUserJPA(@RequestBody UserVo uservo) {
+	public ResponseEntity<message> insertUserJPA(@RequestBody UserVo uservo) {
 
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity user = modelMapper.map(uservo, UserEntity.class);
-		user.setKakaEmail(uservo.getKakao_email());//jpa method용 파라미터명 변경
-		
-//		message ms = new message();
-//		ms.setData(null);
-//
-//		if (usersvc.insertUserJPA(user) == null) {
-//			ms.setReturnmessage("Exist User");
-//			ms.setStatus(statusEnum.BAD_REQUEST.getStatusCode());
-//			
-//		}else {
-//			ms.setReturnmessage("Success");
-//			ms.setStatus(statusEnum.OK.getStatusCode());
-//		}
-//		
-//		return new ResponseEntity<message>(ms,HttpStatus.OK);
-		return usersvc.insertUserJPA(user);
+		user.setKakaEmail(uservo.getKakao_email());// jpa method용 파라미터명 변경
+
+		message ms = new message();
+		ms.setData(null);
+
+		if (usersvc.insertUserJPA(user) == null) {
+			ms.setReturnmessage("Exist User");
+			ms.setStatus(statusEnum.BAD_REQUEST.getStatusCode());
+
+		} else {
+			ms.setReturnmessage("Success");
+			ms.setStatus(statusEnum.OK.getStatusCode());
+		}
+
+		return new ResponseEntity<message>(ms, HttpStatus.OK);
 
 	}
 
@@ -179,9 +178,8 @@ public class UserController {
 
 	@RequestMapping(value = "/testjpa", method = RequestMethod.POST)
 	public Optional<UserEntity> testUserJPA(@RequestBody UserVo uservo) throws Exception {
-
 		Optional<UserEntity> user = userrepository.findBykakaEmail(uservo.getKakao_email());
-		
+
 		return user;
 
 	}

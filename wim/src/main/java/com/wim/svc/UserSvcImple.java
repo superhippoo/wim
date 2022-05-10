@@ -67,7 +67,9 @@ public class UserSvcImple implements UserSvc {
 	@Override
 	public UserEntity insertUserJPA(UserEntity user) {
 		System.out.println(user.getKakaEmail());
-		if (userrepository.findBykakaEmail(user.getKakaEmail()) != null) {
+		Optional<UserEntity> tempuser = userrepository.findBykakaEmail(user.getKakaEmail());
+		System.out.println(tempuser);
+		if (tempuser.isPresent()) {
 			return null;
 		}
 		user.setUser_id(uidUtil.generateUid("U"));
