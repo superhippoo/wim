@@ -12,7 +12,7 @@ public interface UserSvc {
 	
 	public List<UserEntity> selectUserListJPA();
 	
-	public UserVo selectuser(UserVo uservo);
+	public UserVo selectuser(String userId);
 
 	public Optional<UserEntity> selectuserJPA(String userId);
 	

@@ -16,8 +16,10 @@ public class UserEntity {
 	private String user_id;
 	@Column
 	private String user_nickname;
-	@Column
-	private String kakao_email;
+
+	@Column(name = "kakao_email")
+	private String kakaEmail;
+
 	@Column
 	private int use_storage_num;
 	@Column
@@ -45,12 +47,12 @@ public class UserEntity {
 		this.user_nickname = user_nickname;
 	}
 
-	public String getKakao_email() {
-		return kakao_email;
+	public String getKakaEmail() {
+		return kakaEmail;
 	}
 
-	public void setKakao_email(String kakao_email) {
-		this.kakao_email = kakao_email;
+	public void setKakaEmail(String kakaEmail) {
+		this.kakaEmail = kakaEmail;
 	}
 
 	public int getUse_storage_num() {
@@ -93,4 +95,10 @@ public class UserEntity {
 		this.mdfy_dt = mdfy_dt;
 	}
 
+	@Override
+	public String toString() {
+		return "UserEntity [user_id=" + user_id + ", user_nickname=" + user_nickname + ", kakaEmail=" + kakaEmail
+				+ ", use_storage_num=" + use_storage_num + ", act_yn=" + act_yn + ", admin_yn=" + admin_yn + ", reg_dt="
+				+ reg_dt + ", mdfy_dt=" + mdfy_dt + "]";
+	}
 }

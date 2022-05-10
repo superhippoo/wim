@@ -14,5 +14,7 @@ public interface UserDao {
 	public int updateUser(UserVo uservo);
 
 	public int deleteUser(UserVo uservo);
+	
+	public int isExistByKakaoEmail(UserVo uservo);
 
 }

@@ -93,4 +93,21 @@ public class UserDaoImple implements UserDao {
 		return namedParameterJdbcTemplate.update(sql.toString(), paramSource);
 	}
 
+	@Override
+	public int isExistByKakaoEmail(UserVo uservo) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("\n").append("select ");
+		sql.append("\n").append("count(*) ");
+		sql.append("\n").append("from wim_user ");
+		sql.append("\n").append("where kakao_email = :kakao_email ");
+
+		BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(uservo);
+
+		try {
+			return namedParameterJdbcTemplate.queryForObject(sql.toString(), paramSource, Integer.class);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 }

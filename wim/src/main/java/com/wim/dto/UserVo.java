@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class UserVo {
 	
+
 	private String user_id;
 	private String user_nickname;
 	private String kakao_email;
@@ -76,5 +77,13 @@ public class UserVo {
 	public void setMdfy_dt(Timestamp mdfy_dt) {
 		this.mdfy_dt = mdfy_dt;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserVo [user_id=" + user_id + ", user_nickname=" + user_nickname + ", kakao_email=" + kakao_email
+				+ ", use_storage_num=" + use_storage_num + ", act_yn=" + act_yn + ", admin_yn=" + admin_yn + ", reg_dt="
+				+ reg_dt + ", mdfy_dt=" + mdfy_dt + "]";
+	}
+
 
 }
