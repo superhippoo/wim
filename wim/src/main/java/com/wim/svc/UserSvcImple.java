@@ -33,10 +33,10 @@ public class UserSvcImple implements UserSvc {
 	}
 
 	@Override
-	public UserVo selectuser(String userId) {		
+	public UserVo selectuser(String userId) {
 		UserVo uservo = new UserVo();
 		uservo.setUser_id(userId);
-		
+
 		return userdao.selectuser(uservo);
 	}
 
@@ -47,8 +47,8 @@ public class UserSvcImple implements UserSvc {
 
 	@Override
 	public int insertUser(UserVo uservo) {
-		//return code def
-		// 1 = success, 2 = existuser, 0= fail 
+		// return code def
+		// 1 = success, 2 = existuser, 0= fail
 		if (userdao.isExistByKakaoEmail(uservo) != 0) {
 			return 2;
 		}
@@ -59,7 +59,7 @@ public class UserSvcImple implements UserSvc {
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 		uservo.setReg_dt(time);
 		uservo.setMdfy_dt(time);
-			
+
 		return userdao.insertUser(uservo);
 
 	}
@@ -79,7 +79,7 @@ public class UserSvcImple implements UserSvc {
 		user.setReg_dt(time);
 		user.setMdfy_dt(time);
 		user.setUse_storage_num(1);
-		
+
 		return userrepository.saveAndFlush(user);
 	}
 
@@ -105,6 +105,28 @@ public class UserSvcImple implements UserSvc {
 		user.setUser_id(userId);
 		userrepository.delete(user);
 
+	}
+
+	@Override
+	public UserVo login(UserVo uservo) {
+		UserVo temp = new UserVo();
+		temp = userdao.login(uservo);
+		// 1. login success = "Y", 2. login fail = "N", 3. Sign up Required = "R", 4. inactive user = "I" 
+
+		if (temp != null) {
+			if ("Y".equals(temp.getAct_yn())) {
+				temp.setLogin_status("Y");
+			} else if ("N".equals(temp.getAct_yn())) {
+				temp.setLogin_status("I");
+			} else {
+				temp.setLogin_status("N");
+			}
+		} else {
+			temp = new UserVo();
+			temp.setLogin_status("R");
+		}
+
+		return temp;
 	}
 
 }

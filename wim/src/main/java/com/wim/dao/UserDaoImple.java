@@ -110,4 +110,23 @@ public class UserDaoImple implements UserDao {
 		}
 	}
 
+	@Override
+	public UserVo login(UserVo uservo) {
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("\n").append("select ");
+		sql.append("\n").append("* ");
+		sql.append("\n").append("from wim_user ");
+		sql.append("\n").append("where kakao_email = :kakao_email ");
+
+		BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(uservo);
+		RowMapper<UserVo> mapper = new BeanPropertyRowMapper<UserVo>(UserVo.class);
+
+		try {
+			return namedParameterJdbcTemplate.queryForObject(sql.toString(), paramSource, mapper);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

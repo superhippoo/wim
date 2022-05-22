@@ -27,6 +27,9 @@ public interface UserSvc {
 	public int deleteUser(UserVo uservo);
 
 	public void deleteUserJPA(String userId);
+	
+	public UserVo login(UserVo uservo);
+
 
 
 }

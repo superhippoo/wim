@@ -3,7 +3,6 @@ package com.wim.dto;
 import java.sql.Timestamp;
 
 public class UserVo {
-	
 
 	private String user_id;
 	private String user_nickname;
@@ -13,6 +12,9 @@ public class UserVo {
 	private String admin_yn;
 	private Timestamp reg_dt;
 	private Timestamp mdfy_dt;
+	private String login_status;
+	// Def login status
+	// 1. login success = "Y", 2. login fail = "N", 3. Sign up Required = "R", 4. inactive user = "I" 
 
 	public String getUser_id() {
 		return user_id;
@@ -77,13 +79,20 @@ public class UserVo {
 	public void setMdfy_dt(Timestamp mdfy_dt) {
 		this.mdfy_dt = mdfy_dt;
 	}
-	
+
+	public String getLogin_status() {
+		return login_status;
+	}
+
+	public void setLogin_status(String login_status) {
+		this.login_status = login_status;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [user_id=" + user_id + ", user_nickname=" + user_nickname + ", kakao_email=" + kakao_email
 				+ ", use_storage_num=" + use_storage_num + ", act_yn=" + act_yn + ", admin_yn=" + admin_yn + ", reg_dt="
-				+ reg_dt + ", mdfy_dt=" + mdfy_dt + "]";
+				+ reg_dt + ", mdfy_dt=" + mdfy_dt + ", login_status=" + login_status + "]";
 	}
-
 
 }

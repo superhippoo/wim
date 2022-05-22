@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -181,6 +183,53 @@ public class UserController {
 		Optional<UserEntity> user = userrepository.findBykakaEmail(uservo.getKakao_email());
 
 		return user;
+
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<message> login(@RequestBody UserVo uservo, HttpServletRequest request) {
+
+		UserVo loginvo = new UserVo();
+		loginvo = usersvc.login(uservo);
+
+		message ms = new message();
+		ms.setData(loginvo);
+
+		// 1. login success = "Y", 2. login fail = "N", 3. Sign up Required = "R", 4. inactive user = "I"
+
+		if ("Y".equals(loginvo.getLogin_status())) {
+			
+			if (request.getAttribute("UserVo") != null) {
+				request.getSession().invalidate();				
+			}// 기존 세션 정보가 있으면 삭제			
+			
+			request.getSession().setAttribute("UserVo", loginvo);// 세션 정보 생성
+			ms.setReturnmessage("Success");
+			ms.setStatus(statusEnum.OK.getStatusCode());
+		} else if ("N".equals(loginvo.getLogin_status())) {
+			ms.setReturnmessage("Fail");
+			ms.setStatus(statusEnum.INTERNAL_SERVER_ERROR.getStatusCode());
+		} else {
+			ms.setReturnmessage("Check Login Status");
+			ms.setStatus(statusEnum.OK.getStatusCode());
+		}
+
+		return new ResponseEntity<message>(ms, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/session", method = RequestMethod.GET)
+	public ResponseEntity<message> getSession(HttpServletRequest req) {
+
+		message ms = new message();
+		UserVo resultVo = (UserVo) req.getSession().getAttribute("UserVo");
+		ms.setData(resultVo);
+		ms.setStatus(statusEnum.OK.getStatusCode());
+		ms.setReturnmessage("Success");
+		if (resultVo == null) {
+			ms.setReturnmessage("Session Not Found");
+		}
+
+		return new ResponseEntity<message>(ms, HttpStatus.OK);
 
 	}
 

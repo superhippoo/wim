@@ -16,5 +16,8 @@ public interface UserDao {
 	public int deleteUser(UserVo uservo);
 	
 	public int isExistByKakaoEmail(UserVo uservo);
+	
+	public UserVo login(UserVo uservo);
+
 
 }
